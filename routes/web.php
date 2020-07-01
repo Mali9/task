@@ -13,25 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/category/{id}', 'HomeController@postByCategory');
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('logout', 'Auth\LoginController@logout', function () {
+        return abort(404);
+    });
 
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/logout', 'Auth\LoginController@logout');
+    // posts
+    Route::get('/dashboard', 'AdminController@posts')->name('dashboard');
+
+    // all users
+    Route::get('/users', 'AdminController@users')->name('users');
+
+    // all categories
+    Route::get('/categories', 'AdminController@categories')->name('categories');
+
+
+    // post routes
+    Route::get('/create/post', 'PostController@create');
+    Route::post('/store/post', 'PostController@store');
+    Route::get('/edit/post/{id}', 'PostController@edit');
+    Route::post('/update/post/{id}', 'PostController@update');
+    Route::get('/delete/post/{id}', 'PostController@destroy');
 });
-
-
-
-// contact Routes
-Route::get('/contac_us', 'ContactController@index')->name('contact_us');
-Route::get('/email/contents', 'ContactController@getContents')->name('contents');
-Route::post('/contac_us/send', 'ContactController@store')->name('store.contact');
-
-
-
-
-// contact info  Routes
-Route::get('/contac_info', 'ContactInfoController@index')->name('contact_info');
-Route::post('/contac_info/update', 'ContactInfoController@update')->name('update.contact_info');
