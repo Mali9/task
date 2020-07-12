@@ -16,12 +16,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Posts</h1>
+                            <h1 class="m-0 text-dark">{{trans('site.Companies')}}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Posts</li>
+                            <li class="breadcrumb-item"><a href="#">{{trans('site.Home')}}</a></li>
+                                <li class="breadcrumb-item active">{{trans('site.Companies')}}</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -41,47 +41,53 @@
                                     <!-- general form elements -->
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">Quick Example</h3>
+                                            <h3 class="card-name">{{trans('site.Add/Edit_Company')}}</h3>
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
-                                        @if (isset($post))
-                                        <form role="form" action="{{url('/update/post',$post->id)}}" method="POST">
+                                        @if (isset($company))
+                                        <form role="form" action="{{url('/update/company',$company->id)}}" method="post"
+                                            enctype="multipart/form-data">
                                             @else
 
-                                            <form role="form" action="{{url('/store/post')}}" method="POST">
+                                            <form role="form" action="{{url('/store/company')}}" method="post"
+                                                enctype="multipart/form-data">
                                                 @endif
                                                 @csrf
                                                 <div class="card-body">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">title</label>
-                                                        <input required @if (isset($post)) value="{{$post->title}}"
-                                                            @endif name="title" type="text" class="form-control"
-                                                            id="exampleInputEmail1" placeholder="Enter title">
+                                                        <label for="exampleInputEmail1">name</label>
+                                                        <input required @if (isset($company)) value="{{$company->name}}"
+                                                            @endif name="name" type="text" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter name">
                                                     </div>
+
+
                                                     <div class="form-group">
-                                                        <label for="exampleInputPassword1">body</label>
-                                                        <textarea required class="form-control" rows="10" cols="30"
-                                                            name="post" placeholder="Enter ...">
-                                                            @if (isset($post)) {{$post->post}} @endif
-                                                        </textarea>
-
+                                                        <label for="exampleInputEmail1">url</label>
+                                                        <input required @if (isset($company)) value="{{$company->url}}"
+                                                            @endif name="url" type="text" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter url">
                                                     </div>
+
                                                     <div class="form-group">
-                                                        <label>Select Category</label>
-                                                        <select required class="form-control" name="category_id">
-                                                            @if ($categories)
-                                                            @foreach ($categories as $category)
-                                                            <option value="{{$category->id}}" @if (isset($post))
-                                                                {{$post->category_id == $category->id ? 'selected' : ''}}
-                                                                @endif>
-                                                                {{$category->category_name}}</option>
-                                                            @endforeach
-
-                                                            @endif
-
-                                                        </select>
+                                                        <label for="exampleInputEmail1">email</label>
+                                                        <input required @if (isset($company)) value="{{$company->url}}"
+                                                            @endif name="email" type="email" class="form-control"
+                                                            id="exampleInputEmail1" placeholder="Enter email">
                                                     </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">logo</label>
+                                                        <input name="logo" type="file" class="form-control"
+                                                            id="exampleInputEmail1">
+                                                        @if (isset($company))
+                                                        <img src="{{$company->logo}}" width="150" height="50" alt="">
+                                                        @endif
+                                                    </div>
+
+
 
                                                 </div>
                                                 <!-- /.card-body -->

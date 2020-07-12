@@ -13,30 +13,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/category/{id}', 'HomeController@postByCategory');
+Route::get('locale/{locale}', function ($locale) {
+    Session::put('locale', $locale);
+    return redirect()->back();
+});
 
 Auth::routes();
+Route::group(['middleware' => ['localization']], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', 'Auth\LoginController@logout', function () {
         return abort(404);
     });
 
-    // posts
-    Route::get('/dashboard', 'AdminController@posts')->name('dashboard');
+    Route::get('/', 'HomeController@index')->name('home');
 
-    // all users
-    Route::get('/users', 'AdminController@users')->name('users');
+    // employees
 
-    // all categories
-    Route::get('/categories', 'AdminController@categories')->name('categories');
+    
 
+    // employee routes
+    Route::get('/employees', 'EmployeeController@index');
+    Route::get('/create/employee', 'EmployeeController@create');
+    Route::post('/store/employee', 'EmployeeController@store');
+    Route::get('/edit/employee/{id}', 'EmployeeController@edit');
+    Route::post('/update/employee/{id}', 'EmployeeController@update');
+    Route::get('/delete/employee/{id}', 'EmployeeController@destroy');
 
-    // post routes
-    Route::get('/create/post', 'PostController@create');
-    Route::post('/store/post', 'PostController@store');
-    Route::get('/edit/post/{id}', 'PostController@edit');
-    Route::post('/update/post/{id}', 'PostController@update');
-    Route::get('/delete/post/{id}', 'PostController@destroy');
+    // employee routes
+    Route::get('/companies', 'CompanyController@index');
+    Route::get('/create/company', 'CompanyController@create');
+    Route::post('/store/company', 'CompanyController@store');
+    Route::get('/edit/company/{id}', 'CompanyController@edit');
+    Route::post('/update/company/{id}', 'CompanyController@update');
+    Route::get('/delete/company/{id}', 'CompanyController@destroy');
+});
 });

@@ -1,10 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/" class="brand-link">
-        <img src="{{asset('')}}dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-        <span class="brand-text font-weight-light">Home Page</span>
-    </a>
+
+
 
     <!-- Sidebar -->
     @auth
@@ -21,6 +18,16 @@
                     @endauth
                 </a>
 
+                @if (app()->getLocale() == 'en')
+                <a href="/locale/ar" class="d-block">
+                    عربي
+                </a>
+
+                @else
+                <a href="/locale/en" class="d-block">
+                    English
+                </a>
+                @endif
             </div>
         </div>
 
@@ -29,18 +36,29 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+                <a href="/" class="brand-link">
+                    <img src="{{asset('')}}dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">{{trans('site.Home')}}</span>
+                </a>
+
+                <a href="{{url('companies')}}" class="brand-link">
+                    <img src="{{asset('')}}dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">{{trans('site.Companies')}}</span>
+                </a>
+
+                <a href="{{url('employees')}}" class="brand-link">
+                    <img src="{{asset('')}}dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">{{trans('site.Employees')}}</span>
+                </a>
 
 
-                <li class="nav-item">
-                    <a href="/dashboard" class="nav-link">
-                        <i class="nav-icon far fa-arrow-alt-circle-down text-info"></i>
-                        <p>Posts</p>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a href="/logout" class="nav-link">
                         <i class="nav-icon far fa-user text-info"></i>
-                        <p>Logout</p>
+                        <p>{{trans('site.Logout')}}</p>
                     </a>
                 </li>
 
