@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update/employee/{id}', 'EmployeeController@update');
     Route::get('/delete/employee/{id}', 'EmployeeController@destroy');
 
-    // employee routes
+    // companies routes
     Route::get('/companies', 'CompanyController@index');
     Route::get('/create/company', 'CompanyController@create');
     Route::post('/store/company', 'CompanyController@store');
