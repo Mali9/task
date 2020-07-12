@@ -25,15 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $posts = Post::with('user')->with('category')->paginate(5);
-        return view('home', compact(['categories', 'posts']));
-    }
 
-    public function postByCategory($id)
-    {
-        $categories = Category::all();
-        $posts = Post::with('user')->with('category')->where('category_id', $id)->paginate(5);
-        return view('home', compact(['categories', 'posts']));
+        return view('home');
     }
 }
